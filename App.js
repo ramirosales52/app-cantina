@@ -47,8 +47,7 @@ export default function App () {
       },
       "surfaceDisabled": "rgba(31, 27, 22, 0.12)",
       "onSurfaceDisabled": "rgba(31, 27, 22, 0.38)",
-      "backdrop": "rgba(56, 47, 36, 0.4)",
-      "text": "rgb(0, 0, 0)"
+      "backdrop": "rgba(56, 47, 36, 0.4)"
     }
   }
   
@@ -93,21 +92,18 @@ export default function App () {
       },
       "surfaceDisabled": "rgba(234, 225, 217, 0.12)",
       "onSurfaceDisabled": "rgba(234, 225, 217, 0.38)",
-      "backdrop": "rgba(56, 47, 36, 0.4)",
-      "text": "rgb(255, 255, 255)",
+      "backdrop": "rgba(56, 47, 36, 0.4)"
     }
   }
   
   const lightTheme = {
     ...MD3LightTheme,
-    ...lightColors,
-    "text": lightColors.text
+    ...lightColors
   }
   
   const darkTheme = {
     ...MD3DarkTheme,
-    ...darkColors,
-    "text": darkColors.text,
+    ...darkColors
   }
   
   const colorScheme = useColorScheme();

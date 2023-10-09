@@ -1,8 +1,6 @@
 import React from "react"
-import { NavigationContainer, useIsFocused } from "@react-navigation/native"
+import { NavigationContainer } from "@react-navigation/native"
 import { createMaterialBottomTabNavigator } from 'react-native-paper/react-navigation';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
-import FontAwesome6 from 'react-native-vector-icons/FontAwesome5'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
@@ -19,9 +17,11 @@ function Tabs() {
     <Tab.Navigator 
       sceneAnimationEnabled={ true }
       initialRouteName={ Menu }
+      sceneAnimationType="shifting"
     >
       <Tab.Screen name="Menu" component={ Menu } 
         options={{
+          headerTitle:'Menu',
           tabBarLabel: 'Menu',
           tabBarIcon: ({ color, focused }) => (
             <Ionicons name={focused ? 'book' : 'book-outline'} color={color} size={24} />

@@ -1,6 +1,6 @@
 import React from "react"; 
-import { View, Text } from "react-native";
-import { useTheme } from "react-native-paper";
+import { View } from "react-native";
+import { useTheme, Appbar } from "react-native-paper";
 
 const Pedidos = () => {
 
@@ -8,7 +8,10 @@ const Pedidos = () => {
 
   return (
     <View>
-      <Text style={{ fontSize: 30, textAlign: 'center', marginTop: '20%', color: theme.colors.text }}>Pedidos</Text>
+      <Appbar.Header style={{backgroundColor:theme.colors.inverseOnSurface}} elevated={true}>
+       <Appbar.Content title="Pedidos"  />
+      </Appbar.Header>
+      {/* <Text style={{ fontSize: 30, textAlign: 'center', marginTop: '20%', color: theme.colors.onBackground }}>Pedidos</Text> */}
     </View>
   )
 }
