@@ -1,5 +1,5 @@
 import React, { useState } from "react"; 
-import { View, TouchableNativeFeedback, ScrollView, Image } from "react-native";
+import { View, TouchableOpacity, ScrollView, Image } from "react-native";
 import { useTheme, Appbar, Text, Button } from "react-native-paper";
 import { Tabs, TabScreen, TabsProvider } from 'react-native-paper-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -11,7 +11,7 @@ const Menu = () => {
   
 
   return (
-    <TabsProvider>
+    <TabsProvider defaultIndex={0}>
       <Appbar.Header style={{backgroundColor: theme.colors.inverseOnSurface}}> 
         <Appbar.Content title="Menu" color={theme.colors.inverseSurface}/>
       </Appbar.Header>
@@ -77,8 +77,7 @@ function AddToCart() {
   return (
     <View>
       <View style={{ height: 32, width: 110, display: 'flex', flexDirection:'row'}}>
-
-        <TouchableNativeFeedback onPress={() => decrease()}> 
+        <TouchableOpacity onPress={() => decrease()}> 
           <View style={{
               backgroundColor: theme.colors.secondaryContainer,
               display: 'flex',
@@ -94,7 +93,7 @@ function AddToCart() {
             }}>
             <MaterialCommunityIcons name='minus' color={theme.colors.primary} size={18} />
           </View>
-        </TouchableNativeFeedback>
+        </TouchableOpacity>
 
         <View style={{
           flex: 1, 
@@ -107,7 +106,7 @@ function AddToCart() {
           <Text style={{color: theme.colors.onSurface}}>{cantidad}</Text>
         </View>
 
-        <TouchableNativeFeedback onPress={() => increase()}> 
+        <TouchableOpacity onPress={() => increase()}> 
           <View style={{
               backgroundColor: theme.colors.secondaryContainer,
               display: 'flex',
@@ -124,7 +123,7 @@ function AddToCart() {
             }}>
             <MaterialCommunityIcons name='plus' color={theme.colors.primary} size={18} />
           </View>
-        </TouchableNativeFeedback>
+        </TouchableOpacity>
 
       </View>
     </View>
@@ -132,6 +131,11 @@ function AddToCart() {
 }
 
 function List() {
+
+  const [carrito, setCarrito] = useState(true)
+  const toggleCarrito = () => {
+    setCarrito(!carrito);
+  }
 
   const theme = useTheme();
 
@@ -144,26 +148,76 @@ function List() {
       display: 'flex',
       flexDirection: 'row',
       justifyContent: 'space-between',
+      alignItems: 'center',
       borderRadius: 16,
       marginBottom: 12,
     }}>
-      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        <Image source={require('../assets/lata-coca.png')} resizeMode="contain" style={{width: '100%', height: '100%'}} />
+      <View style={{}}>
+        {/* <Text variant="headlineLarge">Coca</Text> */}
+        <Image source={require('../assets/lata-coca.png')} resizeMode="contain" style={{width: 50, height: '100%'}} />
       </View>
-      <View style={{flex: 1}}>
-
+      <View style={{justifyContent: 'center', alignItems: 'center'}}>
         <Text>Lata Coca Cola 310ml</Text>
+        <Text>$300</Text>
       </View>
       <View style={{
-        flex: 1,
         display: 'flex',
-        justifyContent: 'space-around',
-        alignItems: 'center'
+        justifyContent: 'center',
+        alignItems: 'center',
       }}>
-        <Text variant="titleMedium">$120</Text>
-        <AddToCart />   
+        {carrito ? (
+          <BotonCarrito onPress={toggleCarrito}/>
+        ) : (
+          <BotonEliminar onPress={toggleCarrito}/>
+        )}
+        {/* <Text variant="titleMedium">$120</Text>
+        <AddToCart />    */}
       </View>   
     </View>
+  )
+}
+
+function BotonCarrito(props) {
+
+  const theme = useTheme();
+
+  return(
+    <TouchableOpacity onPress={props.onPress}>
+      <View style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 16,
+        backgroundColor: theme.colors.secondary,
+        borderRadius: 12,
+        borderWidth: 1,
+        borderColor: theme.colors.surfaceVariant
+      }}>
+        <MaterialCommunityIcons name='cart' size={24} color={theme.colors.onSecondary}/>
+      </View>
+    </TouchableOpacity>
+  )
+}
+
+function BotonEliminar(props) {
+
+  const theme = useTheme();
+
+  return(
+    <TouchableOpacity onPress={props.onPress}>
+      <View style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 16,
+        backgroundColor: theme.colors.errorContainer,
+        borderRadius: 12,
+        borderWidth: 1,
+        borderColor: theme.colors.onErrorContainer
+      }}>
+        <MaterialCommunityIcons name='trash-can-outline' size={24} color={theme.colors.onErrorContainer}/>
+      </View>
+    </TouchableOpacity>
   )
 }
 

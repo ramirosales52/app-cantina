@@ -37,7 +37,9 @@ function Tabs() {
         }}
       />
       <Tab.Screen name="Carrito" component={ Carrito } 
+
         options={{
+          tabBarBadge:5,
           tabBarLabel: 'Carrito',
           tabBarIcon: ({ color, focused }) => (
             <MaterialCommunityIcons name={focused ? 'cart' : 'cart-outline' } color={color} size={24} />
