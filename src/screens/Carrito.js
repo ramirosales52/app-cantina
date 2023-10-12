@@ -9,6 +9,8 @@ import { decrementQuantity, incrementQuantity } from "../../CartReducer";
 
 const Carrito = () => {
 
+  let precioTotal = 0;
+
   const navigation = useNavigation();
 
   const goToMenu = () => {
@@ -66,91 +68,104 @@ const Carrito = () => {
           </View>
         </View>
       ) : (
-        <ScrollView style={{ backgroundColor: theme.colors.background, flex: 1, margin: 16 }} showsVerticalScrollIndicator={false}>
-
-          {cart.map((item, index) => (
-            <View key={index} style={{
-              backgroundColor: theme.colors.surfaceVariant, 
-              height: 98, 
-              paddingVertical: 12, 
-              paddingHorizontal: 16,
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              borderRadius: 16,
-              marginBottom: 12,
-            }}>
-              <View style={{flex: 1}}>
-                <Image source={require('../assets/lata-coca.png')} resizeMode="contain" style={{width: 50, height: '100%'}} />
-              </View>
-              <View style={{justifyContent: 'center', alignItems: 'center', flex: 1}}>
-                <Text>{item.name}</Text>
-                <Text>$300</Text>
-              </View>
-              <View style={{
-                flex: 1,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-                <Text style={{marginBottom: 5}} variant="titleMedium">${(item.precio)*(item.quantity)}</Text>
-                <View style={{ height: 32, width: 90, display: 'flex', flexDirection:'row'}}>
-                  <TouchableOpacity onPress={() => decreaseQuantity(item)} disabled={item.quantity == 1} > 
-                    <View style={{
-                        backgroundColor: theme.colors.secondaryContainer,
-                        flex: 1,
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        // paddingLeft: 2,
-                        paddingHorizontal: 5,
-                        borderTopLeftRadius: 50, 
-                        borderBottomLeftRadius: 50,
-                        borderWidth: 1, 
-                        borderColor: theme.colors.outline,
-                        borderRightWidth: 0
-                      }}>
-                      <MaterialCommunityIcons name='minus' color={theme.colors.primary} size={18} />
-                    </View>
-                  </TouchableOpacity>
-
-                  <View style={{
-                    flex: 1, 
-                    display:'flex', 
-                    justifyContent:'center', 
-                    alignItems:'center',
-                    borderWidth: 1,
-                    borderColor: theme.colors.outline
-                    }}>
-                    <Text style={{color: theme.colors.onSurface}}>{item.quantity}</Text>
+        <View style={{flex: 1}}>
+          <ScrollView style={{ backgroundColor: theme.colors.background, flex: 1, margin: 16, marginBottom: 0 }} showsVerticalScrollIndicator={false}>
+            {cart.map((item, index) => { 
+              precioTotal += item.precio * item.quantity;
+              return (
+                <View key={index} style={{
+                  backgroundColor: theme.colors.surfaceVariant, 
+                  height: 98, 
+                  paddingVertical: 12, 
+                  paddingHorizontal: 16,
+                  display: 'flex',
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  borderRadius: 16,
+                  marginBottom: 12,
+                }}>
+                  <View style={{flex: 1}}>
+                    <Image source={require('../assets/lata-coca.png')} resizeMode="contain" style={{width: 50, height: '100%'}} />
                   </View>
+                  <View style={{justifyContent: 'center', alignItems: 'center', flex: 1}}>
+                    <Text>{item.name}</Text>
+                    <Text>${item.precio}</Text>
+                  </View>
+                  <View style={{
+                    flex: 1,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}>
+                    <Text style={{marginBottom: 5}} variant="titleMedium">${(item.precio)*(item.quantity)}</Text>
+                    <View style={{ height: 32, width: 95, display: 'flex', flexDirection:'row'}}>
+                      <TouchableOpacity onPress={() => decreaseQuantity(item)} disabled={item.quantity == 1} > 
+                        <View style={{
+                            backgroundColor: theme.colors.secondaryContainer,
+                            flex: 1,
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            paddingLeft: 7,
+                            paddingHorizontal: 5,
+                            borderTopLeftRadius: 50, 
+                            borderBottomLeftRadius: 50,
+                            borderWidth: 1, 
+                            borderColor: theme.colors.outline,
+                            borderRightWidth: 0
+                          }}>
+                          <MaterialCommunityIcons name='minus' color={theme.colors.primary} size={18} />
+                        </View>
+                      </TouchableOpacity>
 
-                  <TouchableOpacity onPress={() => increaseQuantity(item)}> 
-                    <View style={{
-                        backgroundColor: theme.colors.secondaryContainer,
-                        flex: 1,
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        borderTopRightRadius: 50, 
-                        borderBottomRightRadius: 50, 
-                        paddingHorizontal: 5,
-                        margin:0,
-                        borderWidth: 1, 
-                        borderColor: theme.colors.outline,
-                        borderLeftWidth: 0,
-                      }}>
-                      <MaterialCommunityIcons name='plus' color={theme.colors.primary} size={18} />
+                      <View style={{
+                        flex: 1, 
+                        display:'flex', 
+                        justifyContent:'center', 
+                        alignItems:'center',
+                        borderWidth: 1,
+                        borderColor: theme.colors.outline
+                        }}>
+                        <Text style={{color: theme.colors.onSurface}}>{item.quantity}</Text>
+                      </View>
+
+                      <TouchableOpacity onPress={() => increaseQuantity(item)}> 
+                        <View style={{
+                            backgroundColor: theme.colors.secondaryContainer,
+                            flex: 1,
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            borderTopRightRadius: 50, 
+                            borderBottomRightRadius: 50, 
+                            paddingRight: 7,
+                            paddingHorizontal: 5,
+                            margin:0,
+                            borderWidth: 1, 
+                            borderColor: theme.colors.outline,
+                            borderLeftWidth: 0,
+                          }}>
+                          <MaterialCommunityIcons name='plus' color={theme.colors.primary} size={18} />
+                        </View>
+                      </TouchableOpacity>
+
                     </View>
-                  </TouchableOpacity>
-
+                  </View>   
                 </View>
-              </View>   
+            )})}
+          </ScrollView>
+        <View style={{backgroundColor: theme.colors.inverseOnSurface, height: 80, padding: 16}}>
+          <View style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', width: '100%', height: '100%'}}>
+            <View>
+              <Text>Total:</Text>
+              <Text>${precioTotal}</Text>
             </View>
-          ))}
-        </ScrollView>
+            <Button mode="contained" icon={'check'}>Confirmar</Button>
+          </View>
+        </View>
+      </View>
       )}
-      
+
     </View>
   )
 }
