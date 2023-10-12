@@ -3,6 +3,7 @@ import { NavigationContainer } from "@react-navigation/native"
 import { createMaterialBottomTabNavigator } from 'react-native-paper/react-navigation';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import { useSelector } from "react-redux";
 
 import Menu from "./Menu";
 import Pedidos from "./Pedidos";
@@ -13,6 +14,10 @@ import Carrito from "./Carrito";
 const Tab = createMaterialBottomTabNavigator();
 
 function Tabs() {
+
+  const cart = useSelector((state) => state.cart.cart)
+  const itemsInCart = cart.length
+
   return (
     <Tab.Navigator 
       sceneAnimationEnabled={ true }
@@ -39,7 +44,7 @@ function Tabs() {
       <Tab.Screen name="Carrito" component={ Carrito } 
 
         options={{
-          tabBarBadge:5,
+          tabBarBadge: itemsInCart,
           tabBarLabel: 'Carrito',
           tabBarIcon: ({ color, focused }) => (
             <MaterialCommunityIcons name={focused ? 'cart' : 'cart-outline' } color={color} size={24} />
