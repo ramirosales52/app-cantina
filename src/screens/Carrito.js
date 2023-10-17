@@ -1,4 +1,4 @@
-import React, { useState } from "react"; 
+import React from "react"; 
 import { ScrollView, View, Image, TouchableOpacity } from "react-native";
 import { useTheme, Button, Text, Appbar } from "react-native-paper";
 import Ionicons from 'react-native-vector-icons/Ionicons'
@@ -15,6 +15,10 @@ const Carrito = () => {
 
   const goToMenu = () => {
     navigation.navigate("Menu"); 
+  };
+
+  const goToResumen = () => {
+    navigation.navigate("Resumen"); 
   };
 
   const cart = useSelector((state) => state.cart.cart)
@@ -160,7 +164,7 @@ const Carrito = () => {
               <Text>Total:</Text>
               <Text>${precioTotal}</Text>
             </View>
-            <Button mode="contained" icon={'check'}>Confirmar</Button>
+            <Button mode="contained" icon={'check'} onPress={goToResumen}>Confirmar</Button>
           </View>
         </View>
       </View>
